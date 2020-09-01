@@ -23,3 +23,7 @@ For Unix Systems:
    `source nodemind/bin/activate`
 
    `pip -r requirements.txt`
+
+## Document Reader Script
+
+To test run the document reader script, run the following commmand `python documentReader.py` from the root directory and it would print out the test documents listed in the Test Files folder.
