@@ -22,7 +22,7 @@ For Unix Systems:
 
    `source nodemind/bin/activate`
 
-   `pip -r requirements.txt`
+   `pip install -r requirements.txt`
 
 ## Document Reader Script
 

@@ -84,7 +84,6 @@ def main():
     print(*lec3.getText())
 
 if __name__ == "__main__":
-    print('[!]Starting...')
     main()
 
     
