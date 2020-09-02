@@ -3,6 +3,7 @@ import PyPDF2
 import docx
 from pptx import Presentation
 
+
 class pdfReader:
 
     def __init__(self, path:str):
@@ -83,6 +84,7 @@ def main():
     print(*lec3.getText())
 
 if __name__ == "__main__":
+    print('[!]Starting...')
     main()
 
     
