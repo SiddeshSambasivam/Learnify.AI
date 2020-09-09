@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import React from "react";
+>>>>>>> 7482cc5fb1b3c81a2ed083ac956be338a7aa4fff
 import "./App.css";
 import React, { Component } from 'react';
 
