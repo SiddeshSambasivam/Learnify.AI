@@ -1,0 +1,10 @@
+EE2002 – ANALOG ELECTRONICS
+AU: 4 | Prerequisite: EE2001 | Lecture (Online); Tutorial (24 hrs); Laboratory (9 hrs)
+Learning Objective
+This course serves as an introductory analog electronic course. The course offers a broad range of
+fundamental electronic device and circuit topics. The specific materials pertain to analog electronics
+including diodes, bipolar-junction transistors (BJT), Metal Oxide Semiconductor Field Effect
+Transistors (MOSFET), basic amplifier configurations, multistage amplifier and differential amplifiers,
+current sources and current mirrors, frequency response and operational amplifiers. This basic course
+in analog electronics provides for analysis and design of analog electronic circuits, both discrete and
+integrated, required of an electronics engineer.

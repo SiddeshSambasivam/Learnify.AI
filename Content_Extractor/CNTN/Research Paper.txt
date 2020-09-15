@@ -1,0 +1,5 @@
+Title: Keyword Extraction with Character-Level Convolutional Neural Tensor Networks
+Author: Zhe-Li Lin and Chuan-Ju Wang
+
+pg 400
+book: Advances in Knowledge Discorvery and Data Mining 2019
