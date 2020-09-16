@@ -7,7 +7,7 @@ Most importantly, we model semantics down to the character level to capture morp
 - python2.7
 - Chainer==6.0.0
 - nltk==3.4.5
-  nltk corpora ---(run on py3.x) python nltk_download.py  , download all
+- nltk corpora ---(run on py3.x) python nltk_download.py  , download all
 
 if using GPU
 - cupy
