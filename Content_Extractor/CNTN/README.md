@@ -5,8 +5,9 @@ Most importantly, we model semantics down to the character level to capture morp
 
 ### 1.1. Requirements
 - python2.7
-- Chainer
-- nltk
+- Chainer==6.0.0
+- nltk==3.4.5
+  nltk corpora ---(run on py3.x) python nltk_download.py  , download all
 
 if using GPU
 - cupy
@@ -52,7 +53,7 @@ $ python train.py
 
 ### 2.3 Get the keywords from a document
 ```
-$ python predict.py
+$ python predict2.py
 ```
 
 #### Parameters
