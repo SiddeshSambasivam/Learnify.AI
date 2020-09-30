@@ -5247,13 +5247,14 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 
 .jumbotron {
-  background: url("/hello/bootstrap_cheatsheet/images/jumbotron_bg.jpg") no-repeat center center; 
-  -webkit-background-size: 100% 100%;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
+  background-repeat: no-repeat;
   background-size: 100% 100%;
   padding: 2rem 1rem; 
   margin-bottom: 2rem;
+   background: url("/hello/bootstrap_cheatsheet/images/jumbotron_bg.jpg") no-repeat center center; 
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
   background-color: #e9ecef;
   border-radius: 0.3rem;
 }
