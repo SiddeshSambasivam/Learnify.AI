@@ -1,0 +1,24 @@
+.screen {
+  margin-top: 1vh;
+}
+
+.my-row {
+  border: 1px solid red;
+}
+
+.my-col {
+  border: 1px solid blue;
+}
+
+.title {
+  font-family: Darker Grotesque, sans-serif;
+  font-size: 100px;
+  color: #1b1c25;
+  margin-top: 10vh;
+}
+
+.login-features {
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+}
