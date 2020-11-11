@@ -45,6 +45,7 @@ class Login extends Component {
     sessionStorage.setItem("email", this.state.email);
     sessionStorage.setItem("userdata", JSON.stringify(this.state.userdata));
     sessionStorage.setItem("debug", this.state.userdata.debug);
+    sessionStorage.setItem("reload", false);
   }
 
 
@@ -68,16 +69,26 @@ class Login extends Component {
           <div className="row">
             <div className="col">
               <p className="title">
-                <b>NodeMind</b>
+                <b>Learnify.ai</b>
               </p>
+              {/* <div className="row">
+              </div> */}
             </div>
             
           </div>
 
           <div className="row screen">
-            <div className="col-6">
-              
+            <div className="col-5">
+              <p>
+              <br/>
+              <b>Learnify.ai</b> is a web application that scans lecture notes to identify the key terms and uses them to generate a knowledge tree. 
+              <br/><br/>
+              By clicking on the knowledge tree the user can access summaries to these key terms. 
+              <br/><br/>
+              This would help the user prepare more efficiently during examinations as well as better visualize the content they need to study.
+              </p>
             </div>
+            <div className="col-1"></div>
             <div className="col-6 ">
               <font className="login-features">Login</font>
 

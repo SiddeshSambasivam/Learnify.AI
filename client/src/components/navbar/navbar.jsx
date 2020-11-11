@@ -23,8 +23,8 @@ class Navbar extends Component {
       <React.Fragment>
         <div className="contianer">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a className="navbar-brand" href="/">
-          NodeMind
+        <a href="/" className="navbar-brand">
+          Learnify.ai
         </a>
         <button
           className="navbar-toggler"
@@ -46,8 +46,14 @@ class Navbar extends Component {
               </a>
             </li>
             <li className="nav-item active">
-              <a className="nav-link" href="/graph">
+              <a className="nav-link" href="/courses">
                   Courses
+              <span className="sr-only">(current)</span>
+              </a>
+            </li>
+            <li className="nav-item active">
+              <a className="nav-link" href="/study">
+                  Study
               <span className="sr-only">(current)</span>
               </a>
             </li>
@@ -81,7 +87,7 @@ class Navbar extends Component {
       <React.Fragment>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <a className="navbar-brand" href="/">
-          NodeMind
+          Learnify.ai
         </a>
         <button
           className="navbar-toggler"

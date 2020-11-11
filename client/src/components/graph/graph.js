@@ -1,61 +1,76 @@
-import React, { Component } from 'react';
-// import ForceGraph3D from '3d-force-graph';
-import Navbar from '../navbar/navbar';
-import { Redirect } from 'react-router-dom'
-import './graph.css'
+import React, { Component, createRef} from 'react';
+import ForceGraph3D from "react-force-graph-3d";
+import SpriteText from "three-spritetext";
+
 
 class Graph extends Component {
-    // Change debug and other state variables to be initialized by props
 
-    state = {
-        email:'',
-        userdata:{},
-        debug:'400',
+    state = { width: this.props.width, height: this.props.height };
+
+    updateDimensions = () => {
+      this.setState({ width: window.innerWidth, height: window.innerHeight });
+    };
+    componentDidMount() {
+      window.addEventListener('resize', this.updateDimensions);
+    }
+    componentWillUnmount() {
+      window.removeEventListener('resize', this.updateDimensions);
     }
 
-    componentWillMount(){
-        this.setState({
-            email:sessionStorage.getItem('email'),
-            userdata:sessionStorage.getItem('userdata'),
-            debug:sessionStorage.getItem('debug'),
-        })
-    }
+    handleClick = node => {
+      if (node) {
+        const distance = 250;
+        const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
 
-    handleLogout = () => {
-        this.setState({
-            debug:'400',
-            userdata:{},
-            email:''
-        })
-    }
+        const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
-    render() { 
-        if(this.state.debug !== "200"){
-            return(<Redirect to={{pathname:'/login'}} />)
+        const wait = async (node) => {
+          await sleep(3200)
+          console.log("Waiting...")
+          this.props.handleSummary( node["id"])
         }
-        return (
-            <React.Fragment>
-                <Navbar debug={this.state.debug} logout={this.handleLogout} />
-                <div className="container-fluid mcon">
-                    <div className="row my-row">
-                        <div className="col-4 my-col">
-                            <div className="row my-row">
-                                row 1
-                            </div>
-                            <div className="row my-row">
-                                row 2
-                            </div>
-                        </div>
-                        <div className="col-8 mcol">
-                            col 2
-                        </div>
 
-                    </div>
-                </div>
-            </React.Fragment>
+        wait(node)
+        this.fgRef.current.cameraPosition(
+          { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
+          node, // lookAt ({ x, y, z })
+          3000 // ms transition duration
+        )
+
+        // console.log("waiting")        
+      }
+    };
+  
+    fgRef = createRef();
+  
+    render() {
+       
+      if (this.props.data){
+        return (
+        <React.Fragment>
+            
+            <ForceGraph3D
+            ref={this.fgRef}
+            onNodeClick={this.handleClick}
+            height="100vh"
+            width={0.667*this.state.width}
+            graphData={this.props.data}
+            nodeAutoColorBy="group"
+            nodeThreeObject={node => {
+              const sprite = new SpriteText(node.id);
+              sprite.color = node.color;
+              sprite.textHeight = 8;
+              return sprite;
+            }}
+            // linkWidth={1}
+          />
+        </React.Fragment>
         );
+      }
+      else{
+        return null
+      }
     }
 }
  
-
 export default Graph;

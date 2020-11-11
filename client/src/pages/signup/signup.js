@@ -72,7 +72,7 @@ class SignUp extends Component {
         <div className="container">
           <div className="row ">
             <div className="col text-center">
-              <p className="title"><b>WorkTime</b></p>
+              <p className="title"><b>Learnify.ai</b></p>
             </div>
           </div>
 

@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import NavBar from '../../components/navbar/navbar';
 
-class Sample extends Component {
+class Home extends Component {
     state = {
         email:'',
         userdata:{},
         debug:'',
         uploads:[],
         uploadfiles:[],
-        currentCourse:""
+        currentCourse:"",
+        error:false,
+        addCourse:false,
+        userCourse:'',
+        uploading:false
     }
 
     componentWillMount(){
@@ -20,6 +24,7 @@ class Sample extends Component {
                     email:sessionStorage.getItem("email"),
                     userdata: JSON.parse(sessionStorage.getItem("userdata")),
                     debug:sessionStorage.getItem("debug"),
+                    reload:sessionStorage.getItem('reload')
                 }
             )
         }
@@ -35,25 +40,52 @@ class Sample extends Component {
         this.setState({uploadfiles:[...this.state.uploadfiles, event.target.files[0].name]})
     }
 
+    handleCourseError = (file) => {
+        return file
+    }
+
     handleUpload = (event) => {
         
         this.state.uploads.map(
             (file) => {
                 // console.log(file)
                 const data = new FormData();
-                data.append('file', file);
-                fetch('http://0.0.0.0:10000/extract', 
-                    {
-                        method: 'PUT',
-                        body: data,
-                    }
-                ).then(
-                    (response) => {
-                        response.json().then((body) => {
-                            console.log('API debug code:', file) 
-                        });
-                    }
-                );
+                data.append('file', file.file);
+                
+                if(file.course !== ""){
+                    let url  = 'http://0.0.0.0:10000/extract?course=' + String(file.course) + '&email=' + String(this.state.email)
+                    this.setState({
+                        uploading:true
+                    })
+                    fetch(url, 
+                        {
+                            method: 'PUT',
+                            body: data,
+                        }
+                    ).then(
+                        (response) => {
+                            response.json().then((body) => {
+                                console.log('API debug code:', body.code, file) 
+                                let url = 'http://0.0.0.0:10000/integrate?email='+ String(this.state.email) +'&course='+ String(file.course)
+                                fetch(url, {
+                                    method:'GET', dataType:'json'
+                                }).then(res => res.json()).then(data => {
+
+                                    sessionStorage.setItem('reload', true)
+                                    this.setState({uploading:false})
+                                }
+                                )
+                                
+                            });
+                        }
+                    )
+                }
+                else{
+                    this.setState({
+                        error:true
+                    })
+                }
+                return 0;
             }
         )
     }
@@ -78,20 +110,86 @@ class Sample extends Component {
         sessionStorage.setItem("debug", '400')
     }
 
+    addCourse = () => {
+        this.setState({
+            addCourse:!this.state.addCourse
+        })
+    }
+
+    handleAddCourse = () => {
+        
+        let url = 'http://0.0.0.0:10000/addcourse?course='+this.state.userCourse+'&email='+this.state.email
+        
+        fetch(url,{
+            method:'PUT', dataType:'json'
+        })
+        .then(res => res.json())
+        .then(data => console.log('updated',data.debug))
+        .then(
+
+            // fetch('http://0.0.0.0:10000/getData?email='+this.state.email, {
+            //     method:'GET', dataType:'json'
+            // }).then(res => res.json()).then(data => {
+
+                sessionStorage.setItem('reload', true)
+            // }
+            // )
+        )
+        
+    }
+
+    handleCourseChange = (event) => {
+        this.setState({
+            userCourse: event.target.value,
+        });
+    }
+
+    handleReload = () => {
+        console.log("sending api")
+        fetch('http://0.0.0.0:10000/getData?email='+this.state.email, {
+            method:'GET', dataType:'json'
+        })
+        .then(res => res.json())
+        .then(data => {
+            // console.log("home")
+            sessionStorage.setItem("userdata", JSON.stringify(data))
+            this.setState({
+                userdata:data,
+            })
+            sessionStorage.setItem('reload', false)
+        }) 
+    }
+
     render() { 
 
         if(this.state.debug !== "200"){
             return(<Redirect to={{pathname:'/login'}} />)
         }
 
+        let userCourse = null
+        const reload = sessionStorage.getItem('reload')
+        // console.log("reloading the page: ", reload === "true")
+        if(reload === "true"){
+            this.handleReload()
+        }
+
+        if(this.state.addCourse){
+            userCourse = (
+                <div className="input-group mb-3" style={{"marginTop":"10px"}}>
+                    <input type="text" className="form-control" placeholder="Course Name" aria-label="Course Name" aria-describedby="button-addon2" onChange={this.handleCourseChange}/>
+                    <div className="input-group-append">
+                        <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={this.handleAddCourse}>Add Course</button>
+                    </div>
+                </div>
+            )
+        }
+
         if(this.state.uploads.length > 0){
             let filenames = []
             Array.from(this.state.uploads).forEach(file => filenames.push((file.file.name)))
-            console.log('fielnames: ', filenames)
             var fileList = filenames.map(function(filename){
                 return <li className="list-group-item alert alert-success">{filename}</li>;
             })
-            console.log(fileList)
         }
 
         if(this.state.userdata.courses.length > 0){
@@ -156,11 +254,15 @@ class Sample extends Component {
                                     <div className="dropdown-menu">
                                         {courseList}
                                         <div className="dropdown-divider"></div>
-                                        <a className="dropdown-item" href="#">Add course</a>
+                                        <button className="dropdown-item" type="button" onClick={this.addCourse}>Add course</button>
                                     </div>
                                 </div>
+                                
                             </div>
-    
+
+                            <div className="row justify-content-center" style={{"marginTop":"10px"}}>
+                                {userCourse}
+                            </div>
                         </div>
 
                         <div className="col-6 text-center">
@@ -171,7 +273,13 @@ class Sample extends Component {
                             <div className="row justify-content-center">
                                 <div className="col-5">
                                     <div className="list-group">
-                                        {fileList}
+                                        {this.state.uploading ?                                     
+                                        <div style={{"marginTop":"6vh"}}>
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div> 
+                                        : fileList}
                                     </div>
                                 </div>
                             </div>
@@ -184,4 +292,4 @@ class Sample extends Component {
     }
 }
  
-export default Sample;
+export default Home;
