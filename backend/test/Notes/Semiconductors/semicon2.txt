@@ -1,0 +1,16 @@
+Solids are characterized by the size of an ordered region within the material. 
+The ordered region is a spatial volume in which atoms or molecules have a regular geometric arrangement, or periodicity.
+Periodic arrangement of points in a space is called a lattice. The point is called a lattice point. 
+A third non-colinear translation will produce the three dimensional lattice. The lattice directions need not be perpendicular
+A crystal structure is formed when an atom, group of atoms/molecules is attached identically to each lattice point 
+A primitive cell is the smallest unit cell that can be repeated to form lattice
+Planes in a crystal are specified by Miller indices.Types of solid Amorphous, poly-crystalline, crystalline
+A unit cell is a small volume of crystal that can be used to reproduce the entire crystal. 
+A crystallographic direction is defined as a line between two points, a vector.
+Planes in a crystal are specified by Miller indices.
+for simple cubic crystal structure 
+one lattice point located at each corner of the cube 
+for body-centered cubic crystal structure
+one lattice point located at each corner of the cube and an additional lattice point at the center of the cube.for face-centered cubic crystal structure 
+one lattice point located at each corner of the cube and additional lattice points on each face plane
+To have a crystal, one or more atoms/molecules can be placed identically at each lattice point.Length of the cube side is termed as the lattice constant    

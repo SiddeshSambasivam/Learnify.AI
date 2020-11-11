@@ -1,0 +1,11 @@
+the number of quantum states before interaction = the number of quantum states after interaction
+the number of electrons before interaction = the number of electrons after interaction
+We can now look into the energy band formation in semiconductor crystals.
+Consider a silicon crystal consisting of N silicon atoms. The electronic configuration of an isolated silicon atom is
+The N silicon atoms are now brought together to form silicon crystal. 
+Each Si atom shares its four valence electrons with the four nearest neighbors to form stable configuration or to complete their subshells. As a result each Si atom is surrounded by eight electrons. 
+the energy of the bottom of the conduction band, very often called the conduction band edge. the energy of the top of the valence band, very often called the valence band edge
+The electrons and holes are created by the excitation of electrons from the valence band to the conduction band.  This direct excitation of electrons from the valence band to the conduction band is referred to as direct band-to-band generation. 
+Obviously, the number of hole in the valence band equal the number of electrons in the conduction band. Since the electrons and holes are created in pair, they are also called electron-hole pairs.
+There are empty states in the conduction and valence bands, therefore the electrons and holes are able to perform a directed motion under the action of an external electric field, conducting an electric current.
+

@@ -1,0 +1,92 @@
+Data
+ Representation
+ Kinds Of Data
+ Numbers
+ Integers
+ Unsigned
+ Signed
+ Reals
+ Fixed-Point
+ Floating-Point
+ Binary-Coded Decimal    Text
+ ASCII Characters   Strings
+ Other
+ Graphics
+ Images
+ Video
+ Audio
+ Numbers Are Different!
+ Computers use binary (not decimal) numbers (  's and   's) Requires more digits to represent the same magnitude Computers store and process numbers using a fixed number of digits (“fixed-precision”) Computers represent signed numbers using   's complement instead of the more natural (for humans) “sign-plus-magnitude” representation Positional Number Systems    Numeric values are represented by a sequence of digit symbols Symbols represent numeric values
+ Symbols are not limited to ‘  ’-’  ’!
+ Each symbol’s contribution to the total value of the number is weighted according to its position in the sequence Important: Polynomial evaluation doesn’t work if you try to convert in the other direction  Ie, from decimal to something else!  Why?
+ Binary to Decimal Conversion Converting to decimal, so we can use polynomial evaluation: Variation on Polynomial Evaluation for converting fractional values Decimal to Binary Conversion (Fractional Part: Repeated Multiplication)   Multiply by target radix (   in this case)   Whole part of product becomes digit in the new representation (   <= digit < R)   Digits produced in left to right order Fractional part of product is used as next multiplicand Stop when the fractional part becomes zero (sometimes it won’t) Mathematician’s Answer: Use the proper notation:                  Scientist’s Answer: Preserve significant digits and round:        part out of         binary digits =    out of     need              Round:   th digit =   , thus          Engineer’s Answer: Depends on #bits in the variable (  ,     ,     ,     ) EE         Microprocessors Moral
+ Some fractional numbers have an exact representation in one number system, but not in another!     Eg,   /  rd  has no exact representation in decimal, but does in base   ! What about   /    th when represented in binary?
+ Can these representation errors accumulate?
+ What does this imply about equality comparisons of real numb?
+ Counting
+ Principle is the same regardless of radix
+ Add    to the least significant digit
+ If the result is less than R, write it down and copy all the remaining digits on the left Otherwise, write down zero and add    to the next digit position, etc Counting in Binary
+ Dec
+ Binary/Hex Conversions    Hex digits are in one-to-one correspondence with groups of four binary digits: Conversion is a simple table lookup!
+ Zero-fill on left and right ends to complete the groups!
+ Works because      =      (power relationship) EE         Microprocessors Representation Rollover    Consequence of fixed precision Computers use fixed precision!
+ Digits are lost on the left-hand end
+ Remaining digits are still correct
+ Rollover while counting
+ Rollover in Unsigned Binary    Consider an   -bit byte used to represent an unsigned integer: Range:
+ Decrementing a value of    should yield   , but this exceeds the range Exceeding the range is known as overflow
+ Surprise! Rollover is not synonymous with overflow!
+ Rollover describes a pattern sequence behavior
+ Overflow describes an arithmetic behavior
+ Whether or not rollover causes overflow depends on how the patterns are interpreted as numeric values!
+ Eg, In signed two’s complement representation,                                    corresponds to counting from minus one to zero Two Interpretations
+ Signed vs unsigned is a matter of interpretation; thus a single bit pattern can represent two different values Allowing both interpretations is useful: Some data (eg, count, age) can never be negative, and having a greater range is useful Why Not Sign+Magnitude?
+ Complicates addition :   To add, first check the signs If they agree, then add the magnitudes and use the same sign; else subtract the smaller from the larger and use the sign of the larger How do you determine which is smaller/larger?
+ Complicates comparators:   Two zeroes!
+ Why   ’s Complement?
+ Just as easy to determine sign as in sign+magnitude Almost as easy to change the sign of a number
+ Addition can proceed w/out worrying about which operand is larger A single zero!
+ One hardware adder works for both signed and unsigned operands Changing the Sign
+ Sign+Magnitude:
+ convert as if it were unsigned
+ If MSB is   , the number is negative
+ Find representation of N, where N is the original number Convert N to decimal
+ Put a minus sign in front
+ EE         Microprocessors
+ Converting   ’s complement numbers to decimal  Approach #   Example: Converting   ’s complement numbers to decimal  Approach #   Use polynomial evaluation, but make the contribution of the MSB be negative: Range of Unsigned Integers Each of ‘n’ bits can have one of two values If n-bits are used to represent an unsigned integer value: Range:    to   n-    (  n different values) EE         Microprocessors Unsigned Range
+ Addition & Carries
+ Cin
+ Cout
+ D        Column “n” is simply        the sum of Bin, X and        Y Columns Bout & D are
+ simply the   ’s compl
+ representation of n
+ EE         Microprocessors
+ Unsigned Overflow
+ Value of lost bit is   n  (    )
+ (The right answer!)
+ Lost
+ (Result limited by word size) (    )     wrong
+ EE
+ Signed Overflow
+ Overflow is impossible when adding (subtracting) numbers that have different (same) signs Overflow occurs when the magnitude of the result extends into the sign bit position:                   (  )                 This is not rollover!
+ Signed Overflow
+ Detecting Overflow
+ Unsigned:
+ Carry-out of MSB when incrementing or adding
+ Borrow-out of MSB when decrementing or subtracting Signed (  ’s complement): Impossible when adding numbers of different signs Impossible when subtracting numbers of same sign
+ Human Method: Sign of result different from operands Computer Method: Carries/Borrows in/out of MSB differ EE         Microprocessors
+ Problems: Overflow
+ Unsigned (   bits)
+ EE         Microprocessors
+ Comparing Integers
+ Which is Greater:          or         ?
+ Unsigned:                   Floating Point (Real Nos)     Floating point numbers are also know as real numbers (ie         )     Floating point extends the range of numbers that can be stored by a computer, and the accuracy is independent of the number magnitude Generally floating point numbers store a sign (S), exponent (E) and mantissa (F) and are of predetermined number base (B) B is usually set to base Floating point value = (-  )S × F × BE         -bit Single precision format content   Sign   Exponent   Mantissa Bit                            to              to      EE         Microprocessors IEEE standard
+ Used in almost all modern FPUs
+ IEEE       has    sign (S),    exponent (E) and      mantissa bits (F) for single precision and for    (S),      (E) and      bits (F) for double precision The exponent is stored in excess        for single precision (and excess          for double precision) Will focus on single precision for now The mantissa is slightly unusual; for “normal” numbers, the      bits mantissa is a fraction and it is assumed that    must be added to the mantissa, but the    is not stored In other words, the mantissa is a fractional value ranging from    (mantissa bits   ) to slightly below    (all mantissa bits   ) Not “normal” numbers will be discussed later
+ As the exponent is a power of   , the mantissa never needs to be greater than    (you would just add    to the exponent instead) EE         Microprocessors
+ different number types EE         Microprocessors Exponent
+ IEEE       ’s exponent is the actual exponent +        Actual Exponent NaN or infin  …
+ EE         Microprocessors
+ “Normal”Single-precision Floating-point Representation 
+ 
