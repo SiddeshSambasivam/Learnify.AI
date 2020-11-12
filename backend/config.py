@@ -1,3 +1,0 @@
-USERNAME = 'nodemind'
-PASSWORD = 'nodemind'
-
