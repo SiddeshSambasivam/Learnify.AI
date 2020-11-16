@@ -80,12 +80,16 @@ class Login extends Component {
           <div className="row screen">
             <div className="col-5">
               <p>
+              <h2 style={{"fontWeight":"bold"}}>Magnify, Identify, Simplify</h2>
               <br/>
-              <b>Learnify.ai</b> is a web application that scans lecture notes to identify the key terms and uses them to generate a knowledge tree. 
+              <b>Do you want to see which topics in the your lecture notes are connected?</b>
               <br/><br/>
-              By clicking on the knowledge tree the user can access summaries to these key terms. 
-              <br/><br/>
-              This would help the user prepare more efficiently during examinations as well as better visualize the content they need to study.
+              Learnify.ai helps you to visualize your notes in a knowledge graph 
+              and helps you to revise topics based on the amount of study time available for a given course. 
+              <br/>
+              <br/>
+              This would help you prepare more efficiently during examinations as well as better visualize the content they need to study.
+              
               </p>
             </div>
             <div className="col-1"></div>
