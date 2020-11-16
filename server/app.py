@@ -16,6 +16,7 @@ import numpy as np
 import spacy
 from tqdm import tqdm
 from utils import *
+from session import * 
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -63,7 +64,10 @@ class keywordExtractor:
         self.nlp = spacy.load("en_core_web_lg")
         self.vec_len = len(self.nlp("cosine").vector)
         self.k = k
-        self.text = open(path, "r", encoding='UTF-8').read()
+        if path != None:
+            self.text = open(path, "r", encoding='UTF-8').read()
+        else:
+            self.text = ''
     
     @staticmethod
     def isSubstring(str1:str, dictionary:List) -> bool:
@@ -85,7 +89,7 @@ class keywordExtractor:
         return True
 
     def createGraph(self):
-        keywords = self.custom_kw_extractor.extract_keywords(self.text)
+        keywords = self.custom_kw_extractor.extract_keywords(self.text) 
         list1 = []
         list2 = []
         for i, kw in enumerate(keywords):
@@ -289,6 +293,7 @@ def integrateGraphs():
     courseName = request.args.to_dict()["course"]
     courses = db.find({'email_id':email})[0]["courses"]
     data=client['nodemind'].core
+    print('intergrating graphs: ', courseName)
     masterCourses = {}
     ''' 
     mastercourse = {
@@ -303,7 +308,7 @@ def integrateGraphs():
         name = course["course_name"]
         if name == courseName:
             if len(course["lectures"]) > 1:
-                graphs = getGraphs(course["lectures"][1:])
+                graphs, lectureDocs = getGraphs(course["lectures"][1:])
                 print(name)
                 nodes, nodeList = mergeGraphs(graphs)
                 sparseGraph, keywordList = createGraph(nodeList)
@@ -393,7 +398,7 @@ def upload_files():
             }
         }
     )
-
+    
     return {"code":"200"}
 
 @app.route('/signup', methods=['PUT'])
@@ -438,13 +443,28 @@ def signup():
             "courses": [{
                 "course_name": "",
                 "lectures": [{
-                    "data": ""
+                    "data": "",
+                    "graph":{}
                 }],
-                "courseGraph":{}
+                "courseGraph":{},
+                "keywords":{}
             }]
         })
         return {"debug":"200"}
         
+@app.route('/dynamicGraphs', methods=["GET"])
+def dynamicGraphs():
+    email = request.args.to_dict()["email"]
+    course = request.args.to_dict()["course"]
+    lectureNo = str(request.args.to_dict()["lecture"]) # in str
+
+    result = topTopics(email, course, lectureNo)
+    print('after', result["3"])
+    return result
+
+
+
+
 port = int(os.environ.get("PORT", 10000))
 
 if __name__ == "__main__":

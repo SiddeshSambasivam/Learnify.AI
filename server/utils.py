@@ -174,6 +174,7 @@ def mergeGraphs(graphs):
     output = {}
     for graph in graphs:
         for node in graph:
+            print(node)
             node_id = node["id"]
             # node["id"] = node_id
             output[node_id] = node
