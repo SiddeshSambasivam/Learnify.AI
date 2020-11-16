@@ -27,7 +27,7 @@ class Session extends Component {
     }
 
     componentWillMount(){
-        var topics = parseInt(this.props.sessionVars.duration) * this.state.speed
+        var topics = Math.floor(parseInt(this.props.sessionVars.duration) * this.state.speed)
         // var topics = Math.floor(parseInt("5") * this.state.speed)
         // var topics = null
         // console.log("session data",this.props.sessionVars, this.props.sessionData.duration)
@@ -43,6 +43,7 @@ class Session extends Component {
         })
 
         var data = this.props.sessionData
+        // Math.floor(5.95)
         console.log('dumps => ', data, Object.keys(data).length, topics)
         if(topics <= Object.keys(data).length){
             console.log('selected => ',data[topics])
