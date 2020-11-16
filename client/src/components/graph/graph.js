@@ -27,7 +27,7 @@ class Graph extends Component {
         const wait = async (node) => {
           await sleep(3200)
           console.log("Waiting...")
-          this.props.handleSummary( node["id"])
+          this.props.handleSummary(node["id"])
         }
 
         wait(node)
