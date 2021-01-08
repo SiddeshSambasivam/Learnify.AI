@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./signup.css";
 import { Redirect } from "react-router-dom";
 import Navbar from "../../components/navbar/navbar";
+import "./style.css";
 
 class SignUp extends Component {
   state = {
@@ -10,10 +10,10 @@ class SignUp extends Component {
     confirmpassword: "",
     username: "",
     state: false,
-    debug:'',
-    errorMessage:'',
-    err:false,
-    redirect:false
+    debug: "",
+    errorMessage: "",
+    err: false,
+    redirect: false,
   };
 
   handleChange = (e) => {
@@ -23,56 +23,63 @@ class SignUp extends Component {
   };
 
   handleSubmit = () => {
-    if(this.state.debug === "409"){
-      this.setState({errorMessage:"Username already exists", err:true})
+    if (this.state.debug === "409") {
+      this.setState({ errorMessage: "Username already exists", err: true });
+    } else if (this.state.debug === "410") {
+      this.setState({ errorMessage: "Email already registered", err: true });
+    } else if (this.state.debug === "200") {
+      this.setState({ errorMessage: "Signup Successful", redirect: true });
     }
-    else if(this.state.debug === "410"){
-      this.setState({errorMessage:"Email already registered", err:true})
-    }
-    else if(this.state.debug === "200"){
-      this.setState({errorMessage:"Signup Successful", redirect:true})
-    }
-    console.log(this.state)
-  }
+    console.log(this.state);
+  };
   handleSignup = (e) => {
-
     e.preventDefault();
-    let at_idx = this.state.email.indexOf('@')
-    let debug = ''
-    if(this.state.email.slice(at_idx)  === '@gmail.com'){
-      if(this.state.password === this.state.confirmpassword){
+    let at_idx = this.state.email.indexOf("@");
+    let debug = "";
+    if (this.state.email.slice(at_idx) === "@gmail.com") {
+      if (this.state.password === this.state.confirmpassword) {
         let rand = 1 + Math.random() * 999999;
-        let user_id = "" + String(rand) ;
-        
-        let url = 'http://0.0.0.0:10000/signup?email='+this.state.email+'&username='+this.state.username+'&password='+this.state.password+'&user_id='+user_id
-        
+        let user_id = "" + String(rand);
+
+        let url =
+          "http://0.0.0.0:10000/signup?email=" +
+          this.state.email +
+          "&username=" +
+          this.state.username +
+          "&password=" +
+          this.state.password +
+          "&user_id=" +
+          user_id;
+
         fetch(url, {
-          method:'PUT', dataType: 'json'
+          method: "PUT",
+          dataType: "json",
         })
-        .then(res => res.json())
-        .then((data) => {
-          debug = data.debug;
-          this.setState({debug:debug})
-          this.handleSubmit()
-        })
-      }
-      else{
+          .then((res) => res.json())
+          .then((data) => {
+            debug = data.debug;
+            this.setState({ debug: debug });
+            this.handleSubmit();
+          });
+      } else {
         // Wrong confirm password
-        console.log('wrong password')
+        console.log("wrong password");
       }
     }
-  }
+  };
 
   render() {
     if (this.state.state) return <Redirect to="/" />;
-    if (this.state.redirect) return <Redirect to="/login" />
+    if (this.state.redirect) return <Redirect to="/login" />;
     return (
       <React.Fragment>
         <Navbar />
         <div className="container">
           <div className="row ">
             <div className="col text-center">
-              <p className="title"><b>Learnify.ai</b></p>
+              <p className="title">
+                <b>Learnify.ai</b>
+              </p>
             </div>
           </div>
 
@@ -126,15 +133,13 @@ class SignUp extends Component {
                       Sign Up
                     </button>
                   </div>
-                  
-                    {
-                      this.state.err ? (
-                        <div class="alert alert-danger" role="alert">
-                          {this.state.errorMessage}
-                        </div>
-                      ) : null
-                    }
-                  
+
+                  {this.state.err ? (
+                    <div class="alert alert-danger" role="alert">
+                      {this.state.errorMessage}
+                    </div>
+                  ) : null}
+
                   <div className="col"></div>
                 </div>
               </form>

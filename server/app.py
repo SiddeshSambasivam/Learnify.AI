@@ -1,28 +1,33 @@
-from pymongo import MongoClient
-from config import USERNAME, PASSWORD
-from flask import request, jsonify
-from flask_jwt_extended import JWTManager, jwt_required, create_access_token
-from flask_bcrypt import Bcrypt
-import flask
 import os
-from builtins import bytes
-from documentReader import pdfReader, docxReader, pptReader
-from flask_cors import CORS, cross_origin
 import json
-import yake
 from typing import List
-from sklearn.neighbors import NearestNeighbors
+import logging
+
+import flask
+import yake
 import numpy as np
 import spacy
 from tqdm import tqdm
+from pymongo import MongoClient
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token
+from flask import request, jsonify
+from flask_bcrypt import Bcrypt
+from flask_cors import CORS, cross_origin
+from sklearn.neighbors import NearestNeighbors
+
+from documentReader import pdfReader, docxReader, pptReader
 from utils import *
 from session import * 
+from config import USERNAME, PASSWORD
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 jwt = JWTManager(app)
 CORS(app)
 EMAIL = ''
+
+logger = logging.getLogger()
+logging.basicConfig(level="INFO")
 
 client = MongoClient(f"mongodb+srv://{USERNAME}:{PASSWORD}@cluster0.symhm.gcp.mongodb.net/test")
 app.config['JWT_TOKEN_LOCATION'] = ['cookies']
@@ -89,11 +94,12 @@ class keywordExtractor:
         return True
 
     def createGraph(self):
+
         keywords = self.custom_kw_extractor.extract_keywords(self.text) 
         list1 = []
         list2 = []
+
         for i, kw in enumerate(keywords):
-            # print(kw)
 
             list1.append((i, kw[1]))  # list w index number
             if not keywordExtractor.isSubstring(kw[1],list2):
@@ -102,12 +108,10 @@ class keywordExtractor:
         graph = self.top_3(list2)
 
         for i, nn in enumerate(graph):
-            # print('\n---', list2[i], '---')
             for j, indicator in enumerate(nn):
                 if list2[j] == list2[i]:
                     continue
                 elif indicator == 1:
-                    # print(list2[j])
                     pass
         
         return graph, list2
@@ -130,10 +134,7 @@ class keywordExtractor:
             vecs[i] = vec
 
         nbrs = NearestNeighbors(n_neighbors=self.k+1, algorithm='ball_tree').fit(vecs)
-        # distances, indices = nbrs.kneighbors(vecs)
-
         graph = nbrs.kneighbors_graph(vecs).toarray()
-        # print(graph)
 
         return graph
 
@@ -161,21 +162,24 @@ class keywordExtractor:
     
     @staticmethod
     def parseGraph(keywords, lect_num, sparseGraph):
+
         parseData = {
             "nodes":[],
             "links":[]
         }
         nodes, links = [], []
+
         for kw in keywords:
             sample = {
                 "id":kw,
                 "group":lect_num
             }
             nodes.append(sample)
+
         parseData["nodes"] = nodes
-        # print(parseData)
-        # print(sparseGraph)
+
         nlp = spacy.load("en_core_web_lg")
+
         for i, nn in tqdm(enumerate(sparseGraph)):
             for j, indicator in enumerate(nn):
                 if keywords[j] == keywords[i]:
@@ -188,13 +192,11 @@ class keywordExtractor:
                         "target":keywords[j],
                         "value": int(value)
                     }
-                    # print(sample)
+
                     links.append(sample)
 
         parseData["links"] = links
-        # print(parseData)
-        # with open(filePath+'dumps.json', 'w') as outfile:
-        #     json.dump(parseData, outfile, indent=4)    
+
         return parseData
 
 @app.route('/summarise', methods=['GET'])
@@ -245,8 +247,6 @@ def getData():
     
     access_token = create_access_token(identity=email)
     user_data['access_token'] = access_token
-    # global EMAIL 
-    # EMAIL = email
     user_data['debug']='200'
     return user_data
 
@@ -265,13 +265,12 @@ def authenticate():
 
     if not response:
         user_data = dict()
-        user_data['debug'] = '404'
-        # User not found
+        user_data['debug'] = '404' # User not found
         return jsonify(user_data)
 
     if bcrypt.check_password_hash(response['password'], password):
         
-        print('Auth success')
+        logger.info('Auth success')
         db = client['nodemind'].core
         user_data = db.find({'email_id':response['email_id']})[0]
         del user_data['_id']
@@ -293,7 +292,7 @@ def integrateGraphs():
     courseName = request.args.to_dict()["course"]
     courses = db.find({'email_id':email})[0]["courses"]
     data=client['nodemind'].core
-    print('intergrating graphs: ', courseName)
+    logger.info(f'intergrating graphs: {courseName}')
     masterCourses = {}
     ''' 
     mastercourse = {
@@ -308,18 +307,13 @@ def integrateGraphs():
         name = course["course_name"]
         if name == courseName:
             if len(course["lectures"]) > 1:
+                logger.info(f"Course Name: {name}")
                 graphs, lectureDocs = getGraphs(course["lectures"][1:])
-                print(name)
                 nodes, nodeList = mergeGraphs(graphs)
                 sparseGraph, keywordList = createGraph(nodeList)
                 parsedGraph = parseGraph(keywordList, nodes, sparseGraph)
-                # masterCourses[name] = parsedGraph
                 userdata["courses"][i]["courseGraph"] = parsedGraph
-            break
-
-    # pp.pprint(masterCourses)
-    # 'course_name':courseName
-    
+            break    
     
     data.update(
         {'email_id':email},
@@ -349,7 +343,7 @@ def upload_files():
     course_name = request.args.to_dict()['course']
     email = request.args.to_dict()['email']
 
-    print(course_name)
+    logger.info(f"Course Name: {course_name}")
     if file.filename == '':
         flash('No selected file')
         # return 
@@ -359,21 +353,19 @@ def upload_files():
     
 
     db = client['nodemind'].core
-    # print('email', email)
     user_data = db.find({'email_id':email})[0]
-    # print(user_data['courses'])
+
     for idx, course in enumerate(user_data['courses']):
         
         if course['course_name'] == course_name:
             selectedData = course
-            # print("course", selectedData)
             break
 
     text = open(UPLOAD_FOLDER+f'{filename}', "r", encoding='UTF-8').read()
-    print("for course: ", course_name)
-    print("number of lectures: ", len(selectedData['lectures']))
+    logger.info(f"For course: {course_name}")
+    logger.info(f"number of lectures: {len(selectedData['lectures'])}")
     lecture_number = len(selectedData['lectures'])
-    print("adding lecture: ", len(selectedData['lectures']))
+    logger.info(f"adding lecture: {len(selectedData['lectures'])}")
     if lecture_number == 0:
         lecture_number = 1
 
@@ -421,12 +413,15 @@ def signup():
     if db.find_one({'email_id':email}):
         return {"debug":"410"}
 
-    check = db.find_one({'email_id':email})
-    print()
-    bcrypt = Bcrypt()
-    print(check)
+    if db.find_one({'email_id':email}) == None:  
+        check = False
+    else: True 
+
+    
+    logger.info(f"User already exists - {check}")
     if not check:
-        
+
+        bcrypt = Bcrypt()    
         passcode = bcrypt.generate_password_hash(password)
         
         new_record = {
@@ -450,20 +445,19 @@ def signup():
                 "keywords":{}
             }]
         })
-        return {"debug":"200"}
+        return {"debug":"200"} # 200 -> status code: success
+    else:
+        return {"debug":"409"} # 409 -> status code: user already exist
         
 @app.route('/dynamicGraphs', methods=["GET"])
 def dynamicGraphs():
     email = request.args.to_dict()["email"]
     course = request.args.to_dict()["course"]
-    lectureNo = str(request.args.to_dict()["lecture"]) # in str
+    lectureNo = str(request.args.to_dict()["lecture"]) 
 
     result = topTopics(email, course, lectureNo)
-    print('after', result["3"])
+    logger.info(f'after {result["3"]}', )
     return result
-
-
-
 
 port = int(os.environ.get("PORT", 10000))
 

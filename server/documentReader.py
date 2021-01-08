@@ -70,20 +70,10 @@ class pptReader:
         return text_runs
 
 def main():
-    # lec1 = pdfReader('./tmps/lec.pdf')
-    # contents = lec1.getText(1,10)
-    # for k,v in contents.items():
-        # print(f'------------- Page {k} -------------')
-        # print(v)    
-    # print('\n======================================')
 
     lec2 = docxReader('./tmps/Student Development Department Annual Report.docx')
     print('\n\nReading the word document...')
     print(lec2.getText())
-    # print('\n======================================')
-
-    # lec3 = pptReader('./Test Files/test.pptx')
-    # print(*lec3.getText())
 
 if __name__ == "__main__":
     main()
