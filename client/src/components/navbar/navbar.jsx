@@ -131,8 +131,6 @@ class Navbar extends Component {
   }
 
   render() {
-    // const auth = this.props.debug;
-    // console.log(this.state)
     if (this.state.debug === '200'){
       return <React.Fragment> <this.loggedIn /></React.Fragment>;
     }

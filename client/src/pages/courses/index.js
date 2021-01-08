@@ -4,9 +4,6 @@ import Graph from "../../components/graph/graph";
 import { Redirect } from "react-router-dom";
 import "./style.css";
 
-// Developer Notes
-// with that the courses page is over
-
 class Courses extends Component {
   state = {
     email: "",
@@ -26,7 +23,6 @@ class Courses extends Component {
   };
 
   handleSelection = (event) => {
-    // console.log('event=> s', event.target.id)
     this.setState({
       currentCourse: event.target.id,
     });
@@ -37,11 +33,9 @@ class Courses extends Component {
         this.setState({
           currentGraph: graph,
         });
-        // console.log('graph set', graph)
         break;
       }
     }
-    // userdata["courses"] -> "currentCourse" -> courseGraph -> set currentGraph
   };
 
   componentWillMount() {
@@ -71,7 +65,7 @@ class Courses extends Component {
         cus[courses[i].course_name][j] = courses[i].lectures[j].graph;
       }
     }
-    // console.log('cached graphs: ', cus)
+
     this.setState({ cache: cus });
   }
 
@@ -126,15 +120,11 @@ class Courses extends Component {
         this.state.currentCourse
       ) {
         var query = this.state.userdata.courses[tmp]["keywords"][id];
-        // console.log("Query: ", query)
         const summary = (
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
                 <h2 className="modal-title">{id}</h2>
-                {/* <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button> */}
               </div>
               <div className="modal-body">
                 <p style={{ fontSize: "20px" }}>{query}</p>
@@ -148,7 +138,6 @@ class Courses extends Component {
                 >
                   Close
                 </button>
-                {/* <button type="button" className="btn btn-primary">Save changes</button> */}
               </div>
             </div>
           </div>
@@ -216,8 +205,7 @@ class Courses extends Component {
           break;
         }
       }
-      // // this.setState({currentGraph:query[1].graph})
-      // console.log('lecture list',query)
+
       var renderLectures = query.map((lecture) => {
         return (
           <button
@@ -232,8 +220,6 @@ class Courses extends Component {
         );
       });
     }
-    // let data = this.state.currentCourse;
-    // let data = this.state.userdata.courses
 
     return (
       <React.Fragment>

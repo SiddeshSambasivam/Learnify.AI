@@ -147,8 +147,7 @@ class ExamPrep extends Component {
           break;
         }
       }
-      // // this.setState({currentGraph:query[1].graph})
-      // console.log('lecture list',query)
+
       var renderLectures = query.map((lecture) => {
         if (String(lecture.lecture) === this.state.lectures) {
           return (
