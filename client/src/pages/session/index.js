@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Graph from "../../components/graph/graph";
 import { Redirect } from "react-router-dom";
-import dumps from "./dumps.json";
 
 class Session extends Component {
   state = {
