@@ -1,0 +1,64 @@
+Logic
+ Chapter 7 part 1
+ FLAGS (Revision)
+ As mentioned earlier, flags are located in the most significant 4 bits (N Z C V) in CPSR Instructions can be made to set flags by appending an “S” to the mnemonic, eg using EORS instead of EOR EE3002 Microprocessors
+ 2 N Flag
+ Checks for a negative result
+ Negative if most significant bit is 1
+ In both of the following cases, the N Flag is set 
+ Programmer has to decide whether to use the N flag EE3002 Microprocessors 3 V Flag
+ The V flag indicates a sign overflow    V flag is calculated by doing an exclusive OR of the carry bit going into bit 31 of the result with the carry bit coming out of bit 31 In the second example in previous slide, the V flag will be set and the programmer will ignore the N flag  Z flag
+ Z flag tell us the result is All Zeroes    All 32 bits must be 0 C Flag
+ The C flag is set if    result of an addition is greater than or equal to 232   Result of a subtraction is positive (Why???)   Result of an inline barrel shifter operation in a move or logical instruction COMPARISON INSTRUCTIONS
+ 4 instructions do nothing except set the condition codes or test for a particular bit    CMP  Compare CMP subtracts a register or an immediate value from a register value and updates the condition codes You can use CMP to quickly check the contents of a register for a particular value, such as at the beginning or end of a loop Eg
+ CMP r8, #0   ;r8==0
+ BEQ  routine ;yes, then go to my routine  CMN
+ CMN  Compare negative CMN adds a register or an immediate value to another register and updates the condition codes It is the inverse of CMP    If you typed  CMP r0, #-20 , the assembler will generate CMN r0, #0x14 (note 0x14 = 20)  Test Instructions
+ TST  Test TST logically ANDs an arithmetic value with a register value and updates the condition codes without affecting the V flag TEQ  Test equivalence TEQ logically exclusive Ors an arithmetic value with a register value and updates the condition codes without affecting the V flag You can use TEQ to determine if two values are the same Eg TEQ    r9, r4, LSL #3
+ 9 Boolean Operations
+ Instruction         Comment AND        Logically ANDs two operands ORR         Logically ORs two operands EOR         Exclusive OR of two operands MVN        Move Negative  logically NOT’s all               bits BIC          Bit Clear  clears selected bits in a register 
+ Examples
+ A very fast way to load the two’s complement of -1 (0xFFFFFFFF) into a register is to logically invert zero, eg MVN      r5,   #0 ; r5 = -1 in two’s complement    AND r1, r2, r3 ; r1 = r2 AND r3    ORR  r1, r2, r3 ; r1 = r2 OR r3    EOR  r1, r2, r3 ; r1 = r2 EOR r3 EE3002 Microprocessors 11
+ Bit Clear Example
+ BIC r1, r2 , r3 ; r1 = r2 AND NOT r3    The Bit Clear instruction can be used to clear selected bits in a register For each bit in the second operand, a 1 clears the corresponding bit in the first operand and a 0 leaves it unchanged BIC r2, r3, #0xFF000000 ; clears the upper byte of register r3 and moves the result to register r2 Same use as AND r2, r3, #0x00FFFFFF EE3002 Microprocessors 12
+ Using the Barrel Shifter: The Second Operand Operand 1 Operand
+ 2 Barrel
+ Shifter
+ Register, optionally with shift operation applied Shift value can be either be: - 5 bit unsigned integer - Specified in bottom byte of another register
+ ALU
+ Result
+ * Immediate value
+ - 8 bit number
+ - Can be rotated right through an even number of positions - Assembler will calculate rotate for you from constant 
+ Barrel Shifter ‐ Left Shift    Shifts left by the specified amount (multiplies by powers of two) eg LSL #5      => multiply by 32 Logical Shift Left (LSL) CF                                       Destination                        0 EE3002 Microprocessors 14
+ Barrel Shifter ‐ Right Shifts Logical Shift Right (LSR) Shifts right by the specified amount
+ Logical Shift Right
+ Destination                  CF (divides by powers of two) eg LSR #5 = divide by 32 zero shifted in
+ Arithmetic Shift Right (ASR) Shifts right (divides by powers of two) and
+ preserves the sign bit, for 2's complement
+ operations eg ASR #5 = divide by 32 Arithmetic Shift Right Destination                  CF Sign bit shifted in 
+ Barrel Shifter ‐ Rotations Rotate Right (ROR)
+ Similar to an ASR but the bits wrap around as they leave the LSB and appear as the MSB eg       ROR #5
+ Note the last bit rotated is also used as the Carry Out Rotate Right Extended (RRX) This operation uses the CPSR C flag as a 33rd bit Rotate Right
+ Destination                   CF Rotate Right through Carry Destination                  CF 
+ Summary Of Shifts And Rotates Shift/Rotate
+ LSL
+ LSR
+ ASR
+ ROR
+ RRX
+ Operation
+ Logical shift left by n bits Logical shift right by n bits Arithmetic shift right by n bits Rotate right by n bits Rotate right extended by one bit Use
+ Multiplication by 2ⁿ
+ Unsigned division by 2ⁿ Signed division by 2ⁿ 32-bit rotate
+ 33-bit rotate, 33ʳᵈ bit is Carry flag
+ Shift and rotate examples    MOV   r4, r6, LSL #4 ; r4 = r6 << 4 bits    MOV   r4, r6, LSL r3 ; r4 = r6 << # specified in r3    MOV   r4, r6, ROR #12 ; r4 = r6 rotated right 12 bits    All shift operations take one clock cycle to execute, except register-specified shifts which take another clock cycle Shifts and rotates are a very fast way to perform certain multiplications and divisions 
+ Example
+ The shift and logical operations can also be used to move data from one byte to another Suppose we need  to move the uppermost byte from register r2 and put it at the bottom of register r3 The contents of register r3 are shifted left by 8 bits first MOV  r0, r2, LSR #24 ;extract top byte from r2 into r0 ORR  r3, r0, r3, LSL #8 ;shift up r3 and insert r0 
+ Workings
+ Let r2 contains 0xD0ABCDEF    MOV r0, r2, LSR #24 will result in r0 containing 0x000000D0 or 0xD0 (the upper most byte of r2)    Assume r3 contains 0xABCD    After LSL #8, r3 becomes 0xABCD00    After the OR operation, r3 becomes 0xABCDD0!
+ Summary
+ Know your flags, N, V, Z, C    Comparison instructions CMP, CMN    Boolean Operations Shift and Rotates
+
+ 
+

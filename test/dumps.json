@@ -1,0 +1,918 @@
+{
+    "nodes": [
+        {
+            "id": "instruction",
+            "group": 3
+        },
+        {
+            "id": "mode",
+            "group": 3
+        },
+        {
+            "id": "registers",
+            "group": 3
+        },
+        {
+            "id": "irq",
+            "group": 3
+        },
+        {
+            "id": "program status register",
+            "group": 3
+        },
+        {
+            "id": "bits",
+            "group": 3
+        },
+        {
+            "id": "arm",
+            "group": 3
+        },
+        {
+            "id": "fiq",
+            "group": 3
+        },
+        {
+            "id": "status register",
+            "group": 3
+        },
+        {
+            "id": "thumb",
+            "group": 3
+        },
+        {
+            "id": "interrupt",
+            "group": 3
+        },
+        {
+            "id": "user",
+            "group": 3
+        },
+        {
+            "id": "state",
+            "group": 3
+        },
+        {
+            "id": "abort",
+            "group": 3
+        },
+        {
+            "id": "program status",
+            "group": 3
+        },
+        {
+            "id": "system",
+            "group": 3
+        },
+        {
+            "id": "program",
+            "group": 3
+        },
+        {
+            "id": "memory",
+            "group": 3
+        },
+        {
+            "id": "vector table",
+            "group": 3
+        },
+        {
+            "id": "fetch",
+            "group": 3
+        },
+        {
+            "id": "code",
+            "group": 3
+        },
+        {
+            "id": "user mode",
+            "group": 3
+        },
+        {
+            "id": "processor",
+            "group": 3
+        },
+        {
+            "id": "execute",
+            "group": 3
+        },
+        {
+            "id": "thumb state",
+            "group": 3
+        },
+        {
+            "id": "vector",
+            "group": 3
+        },
+        {
+            "id": "table",
+            "group": 3
+        },
+        {
+            "id": "system mode",
+            "group": 3
+        },
+        {
+            "id": "irq interrupts",
+            "group": 3
+        },
+        {
+            "id": "undefined",
+            "group": 3
+        },
+        {
+            "id": "decode",
+            "group": 3
+        },
+        {
+            "id": "exception",
+            "group": 3
+        },
+        {
+            "id": "register bank",
+            "group": 3
+        },
+        {
+            "id": "pipelined architecture",
+            "group": 3
+        },
+        {
+            "id": "machine",
+            "group": 3
+        },
+        {
+            "id": "supervisor",
+            "group": 3
+        },
+        {
+            "id": "architecture",
+            "group": 3
+        },
+        {
+            "id": "svc",
+            "group": 3
+        },
+        {
+            "id": "address",
+            "group": 3
+        },
+        {
+            "id": "execution",
+            "group": 3
+        },
+        {
+            "id": "stack",
+            "group": 3
+        },
+        {
+            "id": "cpsr",
+            "group": 3
+        },
+        {
+            "id": "privileged",
+            "group": 3
+        },
+        {
+            "id": "standard",
+            "group": 3
+        },
+        {
+            "id": "link register",
+            "group": 3
+        },
+        {
+            "id": "time",
+            "group": 3
+        },
+        {
+            "id": "interrupts",
+            "group": 3
+        },
+        {
+            "id": "current",
+            "group": 3
+        }
+    ],
+    "links": [
+        {
+            "source": "instruction",
+            "target": "program status register",
+            "value": 4
+        },
+        {
+            "source": "instruction",
+            "target": "program status",
+            "value": 4
+        },
+        {
+            "source": "instruction",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "mode",
+            "target": "program status register",
+            "value": 4
+        },
+        {
+            "source": "mode",
+            "target": "user mode",
+            "value": 8
+        },
+        {
+            "source": "mode",
+            "target": "system mode",
+            "value": 8
+        },
+        {
+            "source": "registers",
+            "target": "program status register",
+            "value": 4
+        },
+        {
+            "source": "registers",
+            "target": "status register",
+            "value": 5
+        },
+        {
+            "source": "registers",
+            "target": "register bank",
+            "value": 5
+        },
+        {
+            "source": "irq",
+            "target": "interrupt",
+            "value": 4
+        },
+        {
+            "source": "irq",
+            "target": "irq interrupts",
+            "value": 8
+        },
+        {
+            "source": "irq",
+            "target": "interrupts",
+            "value": 4
+        },
+        {
+            "source": "program status register",
+            "target": "status register",
+            "value": 9
+        },
+        {
+            "source": "program status register",
+            "target": "program status",
+            "value": 9
+        },
+        {
+            "source": "program status register",
+            "target": "link register",
+            "value": 7
+        },
+        {
+            "source": "bits",
+            "target": "vector table",
+            "value": 3
+        },
+        {
+            "source": "bits",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "bits",
+            "target": "time",
+            "value": 2
+        },
+        {
+            "source": "arm",
+            "target": "thumb",
+            "value": 4
+        },
+        {
+            "source": "arm",
+            "target": "thumb state",
+            "value": 4
+        },
+        {
+            "source": "arm",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "fiq",
+            "target": "irq interrupts",
+            "value": 3
+        },
+        {
+            "source": "fiq",
+            "target": "pipelined architecture",
+            "value": 1
+        },
+        {
+            "source": "fiq",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "status register",
+            "target": "program status register",
+            "value": 9
+        },
+        {
+            "source": "status register",
+            "target": "program status",
+            "value": 7
+        },
+        {
+            "source": "status register",
+            "target": "link register",
+            "value": 7
+        },
+        {
+            "source": "thumb",
+            "target": "arm",
+            "value": 4
+        },
+        {
+            "source": "thumb",
+            "target": "thumb state",
+            "value": 7
+        },
+        {
+            "source": "thumb",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "interrupt",
+            "target": "program status register",
+            "value": 3
+        },
+        {
+            "source": "interrupt",
+            "target": "irq interrupts",
+            "value": 7
+        },
+        {
+            "source": "interrupt",
+            "target": "interrupts",
+            "value": 8
+        },
+        {
+            "source": "user",
+            "target": "program status register",
+            "value": 5
+        },
+        {
+            "source": "user",
+            "target": "user mode",
+            "value": 8
+        },
+        {
+            "source": "user",
+            "target": "link register",
+            "value": 5
+        },
+        {
+            "source": "state",
+            "target": "program status register",
+            "value": 5
+        },
+        {
+            "source": "state",
+            "target": "program status",
+            "value": 5
+        },
+        {
+            "source": "state",
+            "target": "thumb state",
+            "value": 7
+        },
+        {
+            "source": "abort",
+            "target": "interrupt",
+            "value": 5
+        },
+        {
+            "source": "abort",
+            "target": "execute",
+            "value": 4
+        },
+        {
+            "source": "abort",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "program status",
+            "target": "program status register",
+            "value": 9
+        },
+        {
+            "source": "program status",
+            "target": "status register",
+            "value": 7
+        },
+        {
+            "source": "program status",
+            "target": "program",
+            "value": 8
+        },
+        {
+            "source": "system",
+            "target": "program status register",
+            "value": 5
+        },
+        {
+            "source": "system",
+            "target": "program status",
+            "value": 5
+        },
+        {
+            "source": "system",
+            "target": "system mode",
+            "value": 8
+        },
+        {
+            "source": "program",
+            "target": "program status register",
+            "value": 7
+        },
+        {
+            "source": "program",
+            "target": "program status",
+            "value": 8
+        },
+        {
+            "source": "program",
+            "target": "system mode",
+            "value": 4
+        },
+        {
+            "source": "memory",
+            "target": "user mode",
+            "value": 4
+        },
+        {
+            "source": "memory",
+            "target": "thumb state",
+            "value": 3
+        },
+        {
+            "source": "memory",
+            "target": "system mode",
+            "value": 4
+        },
+        {
+            "source": "vector table",
+            "target": "vector",
+            "value": 8
+        },
+        {
+            "source": "vector table",
+            "target": "table",
+            "value": 7
+        },
+        {
+            "source": "vector table",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "fetch",
+            "target": "execute",
+            "value": 4
+        },
+        {
+            "source": "fetch",
+            "target": "exception",
+            "value": 2
+        },
+        {
+            "source": "fetch",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "code",
+            "target": "program status register",
+            "value": 4
+        },
+        {
+            "source": "code",
+            "target": "status register",
+            "value": 4
+        },
+        {
+            "source": "code",
+            "target": "link register",
+            "value": 4
+        },
+        {
+            "source": "user mode",
+            "target": "mode",
+            "value": 8
+        },
+        {
+            "source": "user mode",
+            "target": "user",
+            "value": 8
+        },
+        {
+            "source": "user mode",
+            "target": "system mode",
+            "value": 8
+        },
+        {
+            "source": "processor",
+            "target": "memory",
+            "value": 5
+        },
+        {
+            "source": "processor",
+            "target": "user mode",
+            "value": 4
+        },
+        {
+            "source": "processor",
+            "target": "system mode",
+            "value": 4
+        },
+        {
+            "source": "execute",
+            "target": "program status register",
+            "value": 4
+        },
+        {
+            "source": "execute",
+            "target": "exception",
+            "value": 3
+        },
+        {
+            "source": "execute",
+            "target": "execution",
+            "value": 7
+        },
+        {
+            "source": "thumb state",
+            "target": "thumb",
+            "value": 7
+        },
+        {
+            "source": "thumb state",
+            "target": "state",
+            "value": 7
+        },
+        {
+            "source": "thumb state",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "vector",
+            "target": "vector table",
+            "value": 8
+        },
+        {
+            "source": "vector",
+            "target": "pipelined architecture",
+            "value": 3
+        },
+        {
+            "source": "vector",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "table",
+            "target": "vector table",
+            "value": 7
+        },
+        {
+            "source": "table",
+            "target": "exception",
+            "value": 3
+        },
+        {
+            "source": "table",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "system mode",
+            "target": "mode",
+            "value": 8
+        },
+        {
+            "source": "system mode",
+            "target": "system",
+            "value": 8
+        },
+        {
+            "source": "system mode",
+            "target": "user mode",
+            "value": 8
+        },
+        {
+            "source": "irq interrupts",
+            "target": "irq",
+            "value": 8
+        },
+        {
+            "source": "irq interrupts",
+            "target": "interrupt",
+            "value": 7
+        },
+        {
+            "source": "irq interrupts",
+            "target": "interrupts",
+            "value": 7
+        },
+        {
+            "source": "undefined",
+            "target": "status register",
+            "value": 3
+        },
+        {
+            "source": "undefined",
+            "target": "exception",
+            "value": 3
+        },
+        {
+            "source": "undefined",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "decode",
+            "target": "program status register",
+            "value": 2
+        },
+        {
+            "source": "decode",
+            "target": "user mode",
+            "value": 3
+        },
+        {
+            "source": "decode",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "exception",
+            "target": "program status register",
+            "value": 4
+        },
+        {
+            "source": "exception",
+            "target": "status register",
+            "value": 4
+        },
+        {
+            "source": "exception",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "register bank",
+            "target": "program status register",
+            "value": 6
+        },
+        {
+            "source": "register bank",
+            "target": "status register",
+            "value": 7
+        },
+        {
+            "source": "register bank",
+            "target": "link register",
+            "value": 6
+        },
+        {
+            "source": "pipelined architecture",
+            "target": "system mode",
+            "value": 3
+        },
+        {
+            "source": "pipelined architecture",
+            "target": "architecture",
+            "value": 7
+        },
+        {
+            "source": "pipelined architecture",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "machine",
+            "target": "system",
+            "value": 5
+        },
+        {
+            "source": "machine",
+            "target": "user mode",
+            "value": 4
+        },
+        {
+            "source": "machine",
+            "target": "system mode",
+            "value": 5
+        },
+        {
+            "source": "supervisor",
+            "target": "program status register",
+            "value": 3
+        },
+        {
+            "source": "supervisor",
+            "target": "program status",
+            "value": 3
+        },
+        {
+            "source": "supervisor",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "architecture",
+            "target": "system mode",
+            "value": 3
+        },
+        {
+            "source": "architecture",
+            "target": "pipelined architecture",
+            "value": 7
+        },
+        {
+            "source": "architecture",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "svc",
+            "target": "program status register",
+            "value": 1
+        },
+        {
+            "source": "svc",
+            "target": "irq interrupts",
+            "value": 2
+        },
+        {
+            "source": "svc",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "address",
+            "target": "program status register",
+            "value": 5
+        },
+        {
+            "source": "address",
+            "target": "status register",
+            "value": 5
+        },
+        {
+            "source": "address",
+            "target": "link register",
+            "value": 6
+        },
+        {
+            "source": "execution",
+            "target": "execute",
+            "value": 7
+        },
+        {
+            "source": "execution",
+            "target": "exception",
+            "value": 4
+        },
+        {
+            "source": "execution",
+            "target": "pipelined architecture",
+            "value": 4
+        },
+        {
+            "source": "stack",
+            "target": "vector table",
+            "value": 4
+        },
+        {
+            "source": "stack",
+            "target": "exception",
+            "value": 3
+        },
+        {
+            "source": "stack",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "cpsr",
+            "target": "program status register",
+            "value": 0
+        },
+        {
+            "source": "cpsr",
+            "target": "thumb state",
+            "value": 0
+        },
+        {
+            "source": "cpsr",
+            "target": "exception",
+            "value": 0
+        },
+        {
+            "source": "privileged",
+            "target": "program status register",
+            "value": 3
+        },
+        {
+            "source": "privileged",
+            "target": "exception",
+            "value": 4
+        },
+        {
+            "source": "privileged",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "standard",
+            "target": "system mode",
+            "value": 4
+        },
+        {
+            "source": "standard",
+            "target": "exception",
+            "value": 3
+        },
+        {
+            "source": "standard",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "link register",
+            "target": "program status register",
+            "value": 7
+        },
+        {
+            "source": "link register",
+            "target": "status register",
+            "value": 7
+        },
+        {
+            "source": "link register",
+            "target": "register bank",
+            "value": 6
+        },
+        {
+            "source": "time",
+            "target": "program status register",
+            "value": 4
+        },
+        {
+            "source": "time",
+            "target": "thumb state",
+            "value": 4
+        },
+        {
+            "source": "time",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "interrupts",
+            "target": "interrupt",
+            "value": 8
+        },
+        {
+            "source": "interrupts",
+            "target": "irq interrupts",
+            "value": 7
+        },
+        {
+            "source": "interrupts",
+            "target": "cpsr",
+            "value": 0
+        },
+        {
+            "source": "current",
+            "target": "program status register",
+            "value": 5
+        },
+        {
+            "source": "current",
+            "target": "status register",
+            "value": 5
+        },
+        {
+            "source": "current",
+            "target": "program status",
+            "value": 5
+        }
+    ]
+}

@@ -1,0 +1,83 @@
+Introduction
+ to ARM
+ Assembly
+ Language
+ Programs
+ Chapter 3, Appendix B of textbook Why Assembly Language?
+ It is a course requirement to know assembly language programming Learning assembly language will help you understand the ARM processor architecture better Assembly language is a low-level language    It allows you to write the most compact and efficient code Low Level vs High Level languages    Application level language eg Matlab, Labview etc Procedural language
+ eg Fortran, Cobol, Basic, C++, etc    Assembly language
+ eg MOV r2, r1 ; MOV the contents of r1 to r2    Machine Code
+ eg 0xE1A02001 ??? Is it an instruction or data?
+ Low Level Languages
+ Low level languages are processor dependent while high level languages are processor independent The first low level language is machine code which consist of binary numbers (or hexadecimal numbers) It is nearly impossible to decipher the program and very tedious to write The assembly language is then invented It uses English abbreviations to describe the operations For example ADD, MOV, SUB, MUL to represent operations like addition, move, subtract and multiply respectively There is a one-to-one mapping between assembly language and machine code High Level Language
+ High level languages are not designed for a particular processor A program written in high level language only requires minor changes (if any) to run on different platforms An assembly language program need to be completely rewritten Use of high-level languages makes programming easier as the user can concentrate on the logic of the problem to be solved instead of the intricacies of the processor architecture and other hardware details    A  single statement in high level language can correspond to many instructions in assembly language Advantages of Assembly language    It allows you to have the most compact code size (Refers to the executable file and NOT the source file)
+ This  is important when you are programming a microcontroller which has limited code space It allows you to have the fastest or most efficient code
+ Writing in assembly language allows you to optimize the code according to the processor architecture Sometimes this is important for real-time control
+ Disadvantages of Assembly Language    It is difficult to write    You need to know the processor architecture well You have to translate your thoughts into action by using fixed assembly instructions, and sometimes many instructions are necessary for a simple task You have to rewrite the program if a different processor is used Platform dependent It is also difficult to read and understand
+ Good assembly language programs normally has lots of comment lines to aid understanding Languages used in embedded systems
+ Desktop Application Development Object Files
+ Compiler
+ Executable
+ Image File
+ Assembler
+ Run-Time Library:
+ Read-Write
+ Memory (RAM)
+ Operating System Image:                              Boot Process Embedded Application Development Object Files                Executable Image File ROM
+ Image File
+ Compiler
+ Assembler
+ Re-Entrant Library:
+ Flash EPROM
+ Memory
+ Real-Time Kernel:
+ EE3002 Microprocessors
+ 10
+ Keil μVision 4
+ Keil μVision 4 is a Integrated Development Environment (IDE) tool It allows you to edit, assemble, debug and test your code
+ The best thing about it is it has a freeware version
+ You can download the program from the Edventure course site (recommended) or download the program from wwwkeilcom If you use one of the older versions, you may have to change the linker settings otherwise you will encounter linker error First Assembly Program (Shifting Data) AREA Prog1, CODE, READONLY ENTRY
+ MOV   r0,  #0x11           ; load initial value MOV   r1,  r0, LSL #1     ; shift 1 bit left MOV   r2,  r1, LSL #1     ; shift 1 bit left stop Bstop END
+ Assembler Directives vs Microprocessor Instructions
+ Those Blue wordings are Assembler Directives which are instructions to the Assembler ( a piece of software) These instructions are not converted into machine code and will never be executed by the processor We   will cover more of it later
+ The Green wordings are ARM microprocessor instructions They are converted to machine code during assembly and are executed by the microprocessor when the program is run Assembler Directives
+ AREA  for the assembler to create a block of code (in this case) in memory CODE  The block created is a set of instructions (or program)
+ READONLY  The block is read-only, which means it cannot be written into AREA Prog1, CODE, READONLY means the assembler will create a block of code called Prog1 (just a name) which is readonly ENTRY  it is the point where the program starts execution
+ END  End of program, the assembler will ignore all other instructions after the END statement ARM Instructions
+ MOV     r0, #0x11
+ The # means that the constant is an immediate operand    This instruction MOVes 11 hexadecimal into register r0 Now register r0 contains 0x11    Or binary 0000 0000 0000 0000 0000 0000 0001 0001     MOV     r1, r0, LSL #1 LSL stands for Logical Shift Left, the instruction will shift the contents of r0 1 bit to the left and place the result in register r1 Now register r1 contains 0x22    Or binary 0000 0000 0000 0000 0000 0000 0010 0010     What is the result in r2 after the last instruction ? MOV     r2, r1, LSL #1 Stopping the program
+ stop     B   stop
+ stop is the name of a label, you can call it any other name, it will still work B is short for Branch
+ The instruction actually tells the processor to branch to the branch instruction itself, which puts the code into an infinite loop Very crude method but convenient as it allows us to terminate the simulation easily by choosing Start/Stop Debug Session from the Debug menu or clicking the Halt button in our Keil tools Getting Started with Keil μVision4    Launch the Keil μVision 4 program    Choose New μVision Project from Project menu Save The Project Titled : Shiftingdata
+ Choose LPC2104 from NXP
+ When you click Ok, a dialog box will appear asking if you want to include startup code for this device Click NO Creating Application Code
+ From the File menu, choose New to create your assembly file with the editor Type in the shifting data program given earlier on slide 12
+ Make sure that except for the stop label, all the other lines must have a space (gap) on the left The program should look as follows:     Choose Save As from the File menu and give it a name, such as Prog1s The assembly file must be added to the project In the Project Workspace window on the left, click on the plus sign to expand the Target     1 folder Right click on the Source Group 1 folder, than choose Add Files to Group ‘Source Group 1’ to add Prog1s Change The Default Linker Settings(v46 )    This step is unnecessary if you are using the Edventure version Right click Target 1 and then options for Target 1 and then click on the Linker Tab Uncheck the box next to Use Memory Layout from Target dialog and delete the scatter file Building the Project and Running Code    Select Rebuild all target files from the Project menu Now that the executable file has been produced, use the debugger for simulation From the Debug menu, choose Start/Stop Debug Session
+ In Debug session, new windows such as Disassembly window, Register window and Memory window will be seen Single-step through the code by clicking on the Step Into button or choose Step from the Debug menu or use the F11 key Observe the changes in the register window When finished, choose Start/Stop Debug Session again from the Debug menu Disassembly Window
+ It shows the machine code of the ARM instructions and their memory location Note that the stop label had been converted into its memory address (0x0000000C) Register, Memory Windows
+ In the Register Window, you can see the values of all the registers and watched the values change as you step through the program In the Memory window, you can see the contents of the memory Observe how the machine code of the ARM instruction is stored in the memory ARM default uses little-endian which means that less significant byte is stored in lower address More about endianess will be covered later Learn to use breakpoints in the debug mode also
+ Factorial Program
+ Factorial of n or n! = n(n-1)(n-2)…(1)    This program will introduce the topics of    Conditional execution: The multiplication may or may not be performed, depending on the result of another instruction Setting flags: The “S” suffix on an instruction directs the processor to update the flags in the CPSR based on the result of the operation Change-of-flow instructions: A branch will load a new address, called a branch target, into the Program Counter, and execution will resume from this new address AREA Prog2,  CODE,  READONLY
+ ENTRY
+ MOV   r6, #10; load 10 into r6 MOV   r4, r6          ;  copy n into a temp register loop  SUBS  r4, r4, #1; decrement next multiplier MULNE   r7, r6, r4  ;perform multiply MOV      r6, r7 BNE        loop  ;go again if not complete stop   B        stop   ;stop program END Explanation Of The Program
+ The instruction “MOV r6, #10” moves the decimal (default) value of 10 into r6 The program computes the factorial of 10 and store the result in r6 The next MOV instruction copies the contents of r6 into r4, which also serves as the multiplier which is reduced by one every iteration until it reaches one The next instruction “SUBS r4, r4, #1”, performs r4 = r4  1 operation The “S” at the end of the SUB instruction means the condition code flags will be set at the end of the instruction If the result is 0, the Z (Zero) flag will be set (=1) Explanation “Cont’d”
+ The MULNE instruction multiplies r6 by r4 and put the result in r7, but only if (subtraction result in this case) not equal to zero Note: when the subtraction result in zero, Z flag is set or Z flag =1, otherwise Z flag is 0 or not set) The third MOV instruction places the product into r6, which will become the final result eventually The BNE works with a label that we placed above it called loop (can be replaced by any name, it is not a reserved word) When executed, the branch instruction changes the program counter to the address of its branch target but only if the result from the subtraction is non-zero (by testing the Z flag) Exchange Register Contents
+ This program exchanges the contents of two registers in a very elegant and efficient manner without the need of a temporary storage Suppose two values A and B are to be exchanged
+ The following algorithm can be used: A = A EOR B
+ B = A EOR B
+ A = A EOR B
+ where EOR denotes the Exclusive Or Operation
+ Exclusive Or Operation
+ Revision of EOR
+ A EOR A = 0
+ A EOR 0 = A
+ A EOR 1 = NOT(A)
+ Exchange Program
+ AREA Prog3,  CODE, READONLY
+ ENTRY
+ LDR    r0, =0xF631024C     ;load some data LDR    r1, =0x17539ABD    ;load some data EOR    r0, r0, r1        ; r0 = r0 EOR r1 EOR    r1, r0, r1        ; r1 = r0 EOR r1 EOR    r0, r0, r1        ; r0 = r0 EOR r1 stop   B   stop              ; stop program END EOR Calculations
+ Explanation
+ In this program two Pseudo-Instructions, LDR (load) are used to load the initial values into the registers More will be covered later Convince yourself by working through the example by hand that it really works Summary
+ You should be able to edit, debug, step, run a simple assembly program in Keil μVision 4 Understand the pros and cons of writing in assembly language
+ Know the difference between Assembly directives and ARM instructions Have some idea of the ARM instruction format
+ 

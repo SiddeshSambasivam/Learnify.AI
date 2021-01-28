@@ -3,10 +3,10 @@ venv/
 .vscode
 client/node_modules
 __pycache__
-tmps
-test/
+
+
 # backend/test
-files
+
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 

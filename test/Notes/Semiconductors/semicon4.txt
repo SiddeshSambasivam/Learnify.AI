@@ -1,0 +1,47 @@
+Valence electrons in the bonds gain thermal energy.Some electrons in valence band gain sufficient energy to jump to conduction band become conduction of “free” electrons. 
+This process corresponds to the electrons breaking the covalent bonds leaving behind broken bonds
+As a result, broken bonds, empty states, or holes are created.The electrons and holes are created in pairs by thermal energy 
+The concentration of these electrons and holes is called intrinsic concentration ni.  
+It is expected that ni increases with increasing temperature T.
+The properties of the semiconductor can be changed by adding controlled amounts of specific impurity atoms, called dopant atoms, to the semiconductor crystal 
+Such doped material is then called an extrinsic material. In the crystal, the group V atoms occupy the Si atom sites, or  in other words substituting or replacing the host Si atoms. 
+The group V atoms in silicon crystals are called donor impurities/atoms for the reason which will be clear later.  
+Consider now a group V atom, say a P atom, inside a silicon crystal
+Silicon atom has 4 valence electrons, but the phosphorus atom, P, has 5 valence electrons
+Four valence electrons of P atom make covalent bonds with the neighboring Si atoms
+The fifth electron is held by the P atom, but much more weakly than the other 4 electrons forming the covalent bonds with the neighboring atoms
+The binding energy of the fifth electron to the P atom can be estimated using the hydrogen atom model. It is much smaller than bandgap energy Eg (the energy necessary to break Si-Si bond to create an electron-hole pair)
+The impurity P atoms introduce an energy level Ed in the bandgap below the conduction band edge Ec. The energy level Ed is called a donor level.
+The energy difference Ec – Ed corresponds to the binding energy of the fifth electron to the P atom. It is the energy required to excite an electron from the donor level to the conduction band.
+Typically, the donor levels Ed lie about 0.01 eV below Ec in Ge and about 0.03 – 0.06 eV below Ec in Si.
+Above 0 K, the electrons in the donor level and the valence band gain thermal energy. The following processes occur.
+Electrons from donor level are excited to the conduction band. This corresponds to the fifth electrons breaking the bonds with the impurity atoms becoming conduction electrons. 
+The impurity atoms then become positively charged or ionized. Each ionized impurity carries a charge,  because the initially neutral impurity atom donates one electron, the fifth electron, to the conduction band.   
+Since the impurity atoms donate the electrons to the conduction, they are called donor impurities/atoms.
+Note that in this case electrons are donated to the conduction band without creation of holes in the valence band.
+Since the excitation of the electrons from the donor level to the conduction band ionizes the donor atoms, the energy difference Ec – Ed is also called the ionization energy of the donor atoms. 
+The thermal equilibrium electron concentration in the conduction band n0 is the sum of
+Electron concentration excited from the donor level to the conduction band. This electron concentration is equal to the donor concentration Nd since all donor impurity atoms are ionized. And consequently, all the donor impurities become positive ions. 
+Electron concentration excited from the valence band to the conduction band. This electron concentration is equal to the hole concentration in the valence band p0 since they are created in pairs.
+The number of electrons excited to the conduction band from the valence band (creating electron-hole pairs) is much smaller than those excited from the donor level, this is because the energy gap Eg is much larger than the energy required to excite the electrons from the donor level to the conduction band Ec – Ed.
+The total charge concentration at thermal equilibrium is zero.
+We have established here the charge neutrality condition at thermal equilibrium. 
+The positively charged ionized donor atoms are fixed in the crystal (covalently bonded with the neighboring atoms). 
+They play important roles in the operation of devices, but do not participate in the electrical conduction. 
+The electrical conduction in semiconductors is carried out by electrons and holes only.
+the electrons are referred to as majority carriers and
+the holes are referred to as minority carriers
+
+number of electrons in the conduction band = number of holes in the valence band
+ni increases with increasing temperature T
+Extrinsic semiconductor:
+The properties of the semiconductor can be changed by adding controlled amounts of specific impurity atoms, called dopant atoms
+Group V atoms in silicon crystals are called donor impurities/atoms
+Electrons are donated to the conduction band without creation of holes in the valence band
+We will now consider a situation where a silicon crystal is doped with impurity atoms from group III in the periodic table.
+At 0 K, there is no excitation of electrons from the donor level and the valence band to the conduction band .Hence, the electron and hole concentrations are both zero. 
+From 0 K to ~ 150 K, the electron concentration in the conduction band increases. Above 0 K, the electrons gain thermal energy and the following processes occur
+Electrons at the donor level are excited to the conduction band
+There are some electrons excited from the valence band to the conduction band creating the electron-hole pairs. The number of these electrons are much smaller than those from the donor level because the energy gap Eg is much larger than .From about 150 K to 450 K, the electron concentration is nearly constant. The reason is that the donor atoms are fully ionized and, yet, at this temperature range the electrons excited from the valence band to the conduction band, creating electron-hole pairs, are still much smaller than those excited from the donor level.  
+Above 450 K, the electron concentration increases sharply. This corresponds to the increasing number of electrons being excited from the valence band to the conduction band creating electron-hole pairs. Here, the number of electrons from the donor level remain constant since the donor atoms have been fully ionized.
+As the electron-hole pair concentration increases and becomes much larger than the donor concentration, the semiconductor reverts to an intrinsic semiconductor.

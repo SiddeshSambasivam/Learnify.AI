@@ -1,0 +1,51 @@
+ARITHMETIC
+ Chapter 7 Part 2
+ +−×/
+ Engineers tend to use lots of mathematical operations in their programs This lecture will look at how arithmetic are implemented in ARM assembly instructions Addition/Subtraction
+ Addition
+64-bit addition
+ The following instructions add a 64-bit integer contained in r2 and r3 to another 64-bit integer in r0         and r1 and place the result in registers r4 and r5 : ADDS  r4, r0, r2   ; add the least significant word ADC r5, r1, r3; add the most significant word EE3002 Microprocessors 4 64-bit addition
+ Carry out
+64-bit subtraction
+ A 64-bit subtraction can be built by first subtracting the lower halves of 64-bit values, updating the Carry flag, and then subtracts the upper halves, including the Carry: SUBS    r0, r0, r2   ;subtract lower halves, set ;Carry flag SBCr1, r1, r3   ;subtract upper halves ;and Carry EE3002 Microprocessors 6 Absolute value example
+ Write ARM assembly to compute the absolute value    r1 contains the initial value, r0 contains the absolute value This can be done using the following two lines CMP    r1, #0 ;check if r1 negative RSBLT   r0, r1, #0 ; if r1 negative, r0 = 0-r1 EE3002 Microprocessors 7 Multiplication
+ Instruction         Comment
+ MUL          32x32 multiply with 32-bit product MLA         32x32 multiply added to a 32-bit accumulated value SMULL      Signed 32x32 multiply with 64-bit product UMULL      Unsigned 32x32 multiply with 64-bit product SMLAL      Signed 32x32 multiply added to a 64-bit accumulated value UMLAL     Unsigned 32x32 multiply added to a 64-bit accumulated value Multiplication by a constant
+ It is sometimes possible to perform multiplications without using the hardware multiplier which may consumes more power and time This can be done by making clever use of the barrel shifter for operand 2 Multiplying a number by a power of two can be easily perform using the barrel shifter MOV r1, r0, LSL #2; r1 = r0*4 EE3002 Microprocessors 10
+ Multiplication w/o using Multiplier   
+ Hence, it is easy to multiply a number by a power of 2, a power of 2 ± 1 without using the multiplier 
+ Complex Multiplication
+ More complex multiplication can be constructed from simpler multiplications, 
+ Division
+ ARM7 does not include a hardware binary integer divider mostly because division is so infrequently used It can therefore can be done in software A divider takes up to much silicon area and consumes too much power N-bit division can be perform using N compare/subtracts Division is complicated!!!
+ Binary Integer Division
+ Worked example: (4 bit unsigned: 10/3) 
+ (quotient = 3)
+ Unsigned Division algorithm
+ So to do the n-bit division of D ÷ V , the algorithm is; 1 set i=n-1, set R=D 2 compare V<<i with R, decrementing i until (V<<i) ≤ R 3 then set R=R -(V<<i) and put a 1 in the quotient (answer word in bit position i) and repeat until i=0 4 At the end, the quotient holds the answer, with remainder in R EE3002 Microprocessors
+ 15
+ In previous example, n = 4 (for simplicity), D =10, V = 3 1    Set i = 3, R = D =10= 1010B (B for binary) 2    11B << 3 = 11000B > 1010B (i=3) (Bit 3 in the quotient is 0) 11B << 2 = 1100B > 1010B (i=2) (Bit 2 in the quotient is 0) 11B << 1 = 110B < 1010B (i = 1) 3    Bit 1 in the quotient is set to 1 and R =1010B-110B = 100B 4    Repeat step 2, i = 0 11B<100B, hence bit 0 in quotient is set to 1 and R=100B-11B=1B (Remainder), quotient = 11B 
+ Signed Division
+ It is difficult to perform division on the two’s complement number directly Hence convert the signed number into unsigned number Can use subtract instruction!!
+ Perform unsigned division
+ Restore the sign of the number, again can use the subtract instruction 
+ Radix point and Q-format
+ The IEEE floating point format is quite complicated and for many applications, programmers use a simpler Q-format Qformat fractional numbers are often called “(xy) format” (where x+y= total no of bits in the word)     To represent a fraction in fixed point binary arithmetic, just move the logical position of the radix point There are signed and unsigned Q-format numbers For example, here are some of the possible 16 bit signed Q format numbers: 
+Sign bit                   Radix point  Q-format Arithmetic
+ The logical position of the radix point must be taken into account by the programmer (this is not a hardware issue!!!) for arithmetic operations:    8 bit Qformat addition/subtraction:    The Qformat of both numbers must be the same ! 
+ 8-bit Q-format multiplication The Qformat of both numbers can differ, but must be known: What Qformat is the result? If we multiply numbers of format (nm) and (pq) then the resultant format is (n+pm+q) It means the multiply result is always twice as long as the operand length (which is normal for every binary multiplication) Qformat arithmetic uses exactly the same hardware as normal arithmetic, that's why it's so useful!
+ EE3002 Microprocessors
+ 22
+ 32-bit Q-format Multiplication     Example 1: multiply two 32-bit Q15 numbers    Q15 × Q15 or (1715) × (1715)    Of course the result is a (3430) number    If we shift the result left by 17 bits the number becomes a (1747) number Drop the least significant 32 bits, we end up with a (1715) number!
+ Example 2: multiply a Q15 number with a Q0 number    Q0× Q15 or (320) × (1715) Of course the result is a (4915) number
+ Drop the most significant 32 bits, we end up with a (1715) number     Q31 has a maximum value of 10 and we know that if we multiply two numbers together that are both ≤ 10, then the result will also be   ≤ 10 it means this format can guarantee no overflow when we do a multiply!
+ EE3002 Microprocessors
+ 23
+ Summary
+ Addition
+ Subtraction
+ Multiplication
+ Division
+ Q-format (fractional notation) EE3002 Microprocessors
+ 24
+ 

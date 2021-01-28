@@ -1,0 +1,21 @@
+The understanding and knowledge of electronic configurations of atoms are required to understand, the atomic bonding in semiconductors, the construction of energy band diagram, the behavior of impurity or dopant atoms in semiconductors
+A solid can be conductor or dielectric depends on the types of bonds, or interaction,  between its atoms.Solids are mostly formed by ionic, covalent and metallic bonds.
+formed by sharing the electrons between atoms so that the atoms achieve a stable electron configuration.When atoms are brought together, the interaction of valence electrons lead to the formation of an electron energy band. The electrical properties of a solid are the consequence of the energy band structure. 
+The electrical conduction can only take place when there is empty states in the energy band. 
+Typical energy band diagrams of metals, semiconductors and insulators  In metals, the energy band is partially filled with electrons.
+The energy of the highest occupied state at zero kelvin is referred to as the Fermi energy.
+Very little energy is required to promote electrons to the adjacent empty states. 
+Therefore metals are very good electrical conductors.
+The minimum energy required for an electron to escape from a metal is called work function. For semiconductors and insulators, there are two bands separated by an energy gap or a bandgap. 
+No quantum states in the energy gap no electron is allowed there. For semiconductors.All states in the lower band are fully occupied by electrons & the upper band is empty. Hence, no electrical conduction.
+For electrical conduction, electrons from the valence band have to be promoted to the empty conduction band.
+Owing to their relatively small bandgap, thermal energy at room temperature may excite some electrons from the valence band to the conduction band. 
+Conductivity is neither very large nor very small.
+smaller than conductivity of good metals such as copper, 
+but much greater than insulators like glass.
+The conductivity can be varied over orders of magnitude by changes in temperature, optical excitation, electric field, and impurity content. 
+Elemental semiconductors.Compound semiconductors.Two element, or binary, compounds. For example, gallium arsenide and indium phosphide
+Three element, or ternary, compounds. For example aluminium gallium arsenide 
+Electronics configuration.Each quantum state is unique, the higher the quantum state, the higher the energy of the electron
+Incomplete subshell makes an atom chemically unstable 
+Silicon.Incomplete 3p subshell, need 4 more valence electrons.Form covalent bond with 4 other Si atoms.Discrete quantum state energy band.Conduction in Silicon.Valence band and conduction band are separated by a bandgap.Need empty state and electron or hole in these bands for conduction 
